@@ -23,9 +23,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.jnativehook.GlobalScreen;
 
-
-
-
 /**
  *
  * @author Arvind
@@ -35,29 +32,20 @@ public class myframe extends javax.swing.JFrame {
     /**
      * Creates new form myframe
      */
-    
     task t;
-    
     public static int state;
-    
     public static String display_workspace_path;
     public static int display_image_index;
     public static int image_count;
-    
     BufferedImage image;
     ImageIcon icon;
-    
     public static int listener_flag;
-    
-    
     
     public myframe() 
     {
         initComponents();
         listener_flag=0;
     }
-    
-    
     
     public int check_display_workspace()
     {
@@ -79,11 +67,9 @@ public class myframe extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         start = new javax.swing.JButton();
         view = new javax.swing.JButton();
         stop = new javax.swing.JButton();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HUMANUAL");
         setPreferredSize(null);
@@ -146,13 +132,10 @@ public class myframe extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void startActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startActionPerformed
-        // TODO add your handling code here:
-     
-        
+    private void startActionPerformed(java.awt.event.ActionEvent evt) {/
         state=1; //state transition from 0 to 1.indicates that new recording has started
         
-        t=new task();
+         t=new task();
          t.get_task_name();
          t.select_workspace();
          
@@ -160,35 +143,30 @@ public class myframe extends javax.swing.JFrame {
          {
              t.create_workspace();
              t.create_original_images_folder();
-              t.generate_the_thumbnail_file();
+             t.generate_the_thumbnail_file();
               
-        t.initialise_the_listener();
-        listener_flag=1; //this indicates that the listener has been initialised and is active
-        t.start_the_recording();
+             t.initialise_the_listener();
+             listener_flag=1; //this indicates that the listener has been initialised and is active
+             t.start_the_recording();
         
-        start.setEnabled(false); //disable the start button until the recording ends
-        stop.setEnabled(true);  //enable the stop button
+             start.setEnabled(false); //disable the start button until the recording ends
+             stop.setEnabled(true);  //enable the stop button
         
-        this.setState(ICONIFIED);
+             this.setState(ICONIFIED);
          }
     }//GEN-LAST:event_startActionPerformed
 
-    private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
-        // TODO add your handling code here:
-             
-        String title_of_viewer;
-   view_recording_window v=new view_recording_window();
+    private void viewActionPerformed(java.awt.event.ActionEvent evt) {
+             String title_of_viewer;
+             view_recording_window v=new view_recording_window();
              v.select_viewimage_path();
              if(v.check_path_notnull()==1) //check if path is not null
              {
-                 //------------------------------------------------------------
-                 if(v.verify_info_file()==1) //if info file exists then
-                 {
-                  create_read_only x=new  create_read_only(); 
-                  title_of_viewer=x.now_read_the_info_file(v.view_image_path);
-                  v.set_title_of_frame(title_of_viewer);
-                  
-                 //------------------------------------------------------------- 
+              if(v.verify_info_file()==1) //if info file exists then
+                {
+                 create_read_only x=new  create_read_only(); 
+                 title_of_viewer=x.now_read_the_info_file(v.view_image_path);
+                 v.set_title_of_frame(title_of_viewer);
                  this.setState(ICONIFIED);
                  v.count_images();
                  v.get_the_audio_files();
@@ -196,25 +174,22 @@ public class myframe extends javax.swing.JFrame {
                  v.sort_audiofile_on_time();
                  v.show_recording_window();            
                  }
-                 else  //display error message that recording cannot be performed
+              else  //display error message that recording cannot be performed
                  {
                      JOptionPane.showMessageDialog(null,"Either this recording is not valid,or it did not end propoerly!");
                  }
              }
     }//GEN-LAST:event_viewActionPerformed
 
-    private void stopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopActionPerformed
-        // TODO add your handling code here:
-        state=0; //state transition from 1 to 2 indicates that recording has ended
-        
-        String Task_workspace;
-        String Task_name;
-        
+    private void stopActionPerformed(java.awt.event.ActionEvent evt) {
+         state=0; //state transition from 1 to 2 indicates that recording has ended
+         String Task_workspace;
+         String Task_name;
          t.remove_listener();
          listener_flag=0; //This indicates that the listener has been removed
          t.generate_the_pdf();
          
-         //-----------Doc File Generation
+         //Doc File Generation
          try
          {
          t.generate_the_doc();
@@ -224,75 +199,49 @@ public class myframe extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null,"Could not generate the Doc file");    
          }
          
-         //---------------------------------------
-         
          t.generate_the_info_file();
-         
-          //once all the steps of the ongoing recording have been completed
-         //,enable the start button
          start.setEnabled(true);  //again enable the start button for new recording 
-           stop.setEnabled(false);  //disable the stop button
+         stop.setEnabled(false);  //disable the stop button
            
-           String opath=t.get_original_image_folder();
+         String opath=t.get_original_image_folder();
            
           File folder=new File(opath);
-        folder.delete();
+          folder.delete();
         
       //Get The Workspace Path and The Task name for future use
-        Task_workspace=t.return_workspace_name();
-        Task_name=t.return_task_name();
+         Task_workspace=t.return_workspace_name();
+         Task_name=t.return_task_name();
         
-        //Delete The Thumbnail file...Thumbnails.txt--------------------------------
+        //Delete The Thumbnail file...Thumbnails.txt
         File thumbnail_file=new File(Task_workspace+"\\"+Task_name+"\\Thumbnails.txt");
-        
         boolean del_thumbnail;
         del_thumbnail=thumbnail_file.delete();
-        
-        //---------Thumbnails.txt deleted--------------------------------------------
-        
-        //System.out.println(Task_workspace);
-        //System.out.println( Task_name);
-        
+
         //Create the zip Folder
-        
         create_zip_folder z= new create_zip_folder(Task_workspace+"\\"+Task_name,Task_name+".zip");
         try {
             z.create_zip_file();
         } catch (IOException ex) {
             Logger.getLogger(myframe.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
-        
-        
-           
-    }//GEN-LAST:event_stopActionPerformed
+    }
 
-    private void Disable_stop_initially(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_Disable_stop_initially
-        // TODO add your handling code here:
+    private void Disable_stop_initially(java.awt.event.WindowEvent evt) {
         stop.setEnabled(false);
-    }//GEN-LAST:event_Disable_stop_initially
+    }
 
-    private void Humanual_window_closing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_Humanual_window_closing
-        // TODO add your handling code here:
+    private void Humanual_window_closing(java.awt.event.WindowEvent evt) {
         if(listener_flag==1)  //listener has not been removed due improper termination of recording
         {
             t.remove_listener();
             JOptionPane.showMessageDialog(null,"Listener was not removed...now it is removed");
         }
-        
-        
-    }//GEN-LAST:event_Humanual_window_closing
+    }
 
     /**
      * @param args the command line arguments
     */
     public static void main(String args[]){
-        
-            /* Set the Nimbus look and feel */
-            //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-            /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-             * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-             */
             try {
                 for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                     if ("Nimbus".equals(info.getName())) {
@@ -309,25 +258,8 @@ public class myframe extends javax.swing.JFrame {
             } catch (javax.swing.UnsupportedLookAndFeelException ex) {
                 java.util.logging.Logger.getLogger(myframe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
-            //</editor-fold>
-            
             try{
-                /*
-                 UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
-                 UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiButtonUI");
-                 UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLabelUI");
-                 UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiPanelUI"); 
-                 UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiScrollBarUI"); 
-                 UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiTitlePane");
-                 UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiToggleButtonUI");
-                 UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiUtils");
-                */
                 UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel");
-                 //UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.NoireButtonUI");
-                
-                
-                
-              
             }catch(Exception exp){System.out.println("");}
             
               /* Create and display the form */
@@ -336,7 +268,6 @@ public class myframe extends javax.swing.JFrame {
                     new myframe().setVisible(true);         
                 }
             });
-        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton start;
