@@ -52,110 +52,74 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
     /**
      * Creates new form editing_window
      */
-    
-    public static final String Voicename="kevin16";
-    
-    CustomBalloonTip[] b;
-            
-    public static String speak_text;
-    
-    public static int b_index;
-      
-    public static boolean is_mouse_dragged;
-      
-    private boolean show=false;
- 
-    public static Color color_chosen=Color.GREEN;
-    
-    public static String display_image_path;
-    
-    public static String path_for_audio_file;
-    
-    public static String original_image_folder;
-    
-    public static String master_string;
-    
-    
-     BufferedImage old_image;
-
-     ImageIcon icon1,icon1_original;
-     Image thumb,thumb_original; 
-     
-     BufferedImage original_image;
+public static final String Voicename="kevin16";
+CustomBalloonTip[] b;
+public static String speak_text;
+public static int b_index;
+public static boolean is_mouse_dragged;
+private boolean show=false;
+public static Color color_chosen=Color.GREEN;
+public static String display_image_path;
+public static String path_for_audio_file;
+public static String original_image_folder;
+public static String master_string;
+BufferedImage old_image;
+ImageIcon icon1,icon1_original;
+Image thumb,thumb_original; 
+BufferedImage original_image;
          
-     //Now the variables for Drawing
-     
- private int mousex                = 0;
- private int mousey                = 0;
+//Now the variables for Drawing
+private int mousex                = 0;
+private int mousey                = 0;
 
- /* Previous mouse coordinates */
- private int prevx                 = 0;
- private int prevy                 = 0;
-    
- private boolean initialRect       = true;
+/* Previous mouse coordinates */
+private int prevx                 = 0;
+private int prevy                 = 0;
+private boolean initialRect       = true;
+private boolean initialOval       = true;
+private boolean initialPen     = true;
+private boolean initialLine       = true;
  
- private boolean initialOval       = true;
- 
- private boolean initialPen     = true;
- 
- private boolean initialLine       = true;
- 
-  /* Main Mouse X and Y coordiante variables */
- private int  Orx                  = 0;
- private int  Ory                  = 0;
- private int  OrWidth              = 0;
- private int  OrHeight             = 0;
- private int  drawX                = 0;
- private int  drawY                = 0;
- 
- public int opStatus;     
- 
- public static String[] th_temp;
- 
- public static String p;
- 
- public static JTextField t_balloon;
-        
- public static JTextField [] tf;
-       
- public static String[] ann;
-       
- 
- 
- 
- 
+ /* Main Mouse X and Y coordiante variables */
+private int  Orx                  = 0;
+private int  Ory                  = 0;
+private int  OrWidth              = 0;
+private int  OrHeight             = 0;
+private int  drawX                = 0;
+private int  drawY                = 0;
+public int opStatus;     
+public static String[] th_temp;
+public static String p;
+public static JTextField t_balloon;
+public static JTextField [] tf;
+public static String[] ann;
+      
     public editing_window() 
     {
         initComponents();
-      b=new CustomBalloonTip[30]; 
-     b_index=0;
-     th_temp=new String[4];
-     speak_text=null;
-     master_string=null;
+        b=new CustomBalloonTip[30]; 
+        b_index=0;
+        th_temp=new String[4];
+        speak_text=null;
+        master_string=null;
     }
     
     public void read_thumbnail_file(String path_of_thumbnail)
     {
-        FileReader f_reader;
+       FileReader f_reader;
        int i;
 		try {
 			f_reader = new FileReader(path_of_thumbnail);
 			BufferedReader b_reader= new BufferedReader(f_reader);
-                        
                         for(i=0;i<th_temp.length;i++)
                         {
 		        th_temp[i]=b_reader.readLine();
-                        //System.out.println(th_temp[i]);
                         }
-	
 	            }
                 catch (Exception ex)
                 {
                     System.out.println("Error in reading File!!");
                 }
-         
-        
-        
     }
     
     public void set_thumbnail_images()
@@ -165,143 +129,79 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
         ImageIcon icon_zero,icon_one,icon_two,icon_three;
         File file_zero,file_one,file_two,file_three;
         
-     //set the image for thumbnail0---------------------------------------------
+     //set the image for thumbnail0
         try
-        {
-            
-           
-            
+       {
          file_zero=new File(th_temp[0]);
          bimage0=ImageIO.read(file_zero);
          thumb0=bimage0.getScaledInstance(thumbnail0.getWidth(),thumbnail0.getHeight(),Image.SCALE_SMOOTH);
          icon_zero=new ImageIcon(thumb0);
-         
          thumbnail0.setIcon(icon_zero);
-      
-         
-            
         }
         catch(Exception exception0)
         {
-           // System.out.println("Cannot fetch image!!");
-            
-            //System.out.println(th_temp[0]+" path0 ");
-             thumbnail0.setSize(new Dimension(14,14));
-            thumbnail0.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proj images/squares/black_square.png")));
-            
+            thumbnail0.setSize(new Dimension(14,14));
+            thumbnail0.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proj images/squares/black_square.png"));
         }
-        //-------------------------------------------------------------------------------
-        
-        ///----------set thumnnail1-------------------------------------
-        
+        //set thumnnail1
         try
         {
-            
-            
          file_one=new File(th_temp[1]);
          bimage1=ImageIO.read(file_one);
          thumb1=bimage1.getScaledInstance(thumbnail1.getWidth(),thumbnail1.getHeight(),Image.SCALE_SMOOTH);
          icon_one=new ImageIcon(thumb1);
-         
          thumbnail1.setIcon(icon_one);
-         
-         
-            
         }
         catch(Exception exception1)
         {
-            
-            //System.out.println(th_temp[1]+" path[1] ");
             thumbnail1.setSize(new Dimension(14,14));
             thumbnail1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proj images/squares/black_square.png")));
-            
         }
-        //------------------------------------------------------------------------------
         
-        //set thumbnail 2-----------------------------------------------------------------
+        //set thumbnail 2
         
-         try
-        {
-            
-            
+         try{
          file_two=new File(th_temp[2]);
          bimage2=ImageIO.read(file_two);
          thumb2=bimage2.getScaledInstance(thumbnail2.getWidth(),thumbnail2.getHeight(),Image.SCALE_SMOOTH);
          icon_two=new ImageIcon(thumb2);
-         
          thumbnail2.setIcon(icon_two);
-         
-         
-            
         }
         catch(Exception exception2)
         {
-           
-            //System.out.println(th_temp[2]+" path[2] ");
             thumbnail2.setSize(new Dimension(14,14));
             thumbnail2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proj images/squares/black_square.png")));
-            
         }
          
-         //---------------------------------------------------------------------------------
-         
-        //set thumbnail 3--------------------------------------------------------------------
-          try
-        {
-            
-            
-            
+        //set thumbnail 3
+          try{
          file_three=new File(th_temp[3]);
          bimage3=ImageIO.read(file_three);
          thumb3=bimage3.getScaledInstance(thumbnail3.getWidth(),thumbnail3.getHeight(),Image.SCALE_SMOOTH);
          icon_three=new ImageIcon(thumb3);
-         
          thumbnail3.setIcon(icon_three);
-         
-         
-            
         }
         catch(Exception exception3)
         {
-            
-            //System.out.println(th_temp[3]+" path[3] ");
             thumbnail3.setSize(new Dimension(14,14));
             thumbnail3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proj images/squares/black_square.png")));
-            
         }
-        //--------------------------------------------------------------------------------
-        
-        
-        
-        
-        
-        
     }
-    
-    
-    
-    
-    
-    public void clearPanel()
- {
-    
+   
+    public void clearPanel(){
     Graphics g = jp.getGraphics();
     g.setColor(jp.getBackground());
     g.fillRect(0,0,jp.getBounds().width,jp.getBounds().height);
     g.dispose();
   }
 
-    
-    public void draw_balloon_on_MouseHover(String s,JComponent J)
-    {
+    public void draw_balloon_on_MouseHover(String s,JComponent J){
         
         ModernBalloonStyle modern_style =new ModernBalloonStyle(10,10,Color.RED,Color.YELLOW,Color.GREEN);
                    modern_style.setCornerStyles(true,true,true,true);
                            
-                  JLabel msg =new JLabel(s);
-                  
-                   
-         final BalloonTip b_tip_rect = new BalloonTip(
+        JLabel msg =new JLabel(s);
+        final BalloonTip b_tip_rect = new BalloonTip(
 					J,
 					msg,
 					modern_style,
@@ -310,14 +210,9 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
 					10,10,
 					true
 				);
-          
-          //b_tip_rect.setCloseButton(BalloonTip.getDefaultCloseButton(), false);
-         b_tip_rect.setCloseButton(null,true);
-         
-                   b_tip_rect.setOpacity(0.9f);
-         
-         TimingUtils.showTimedBalloon(b_tip_rect,1000);
-        
+        b_tip_rect.setCloseButton(null,true);
+        b_tip_rect.setOpacity(0.9f);
+        TimingUtils.showTimedBalloon(b_tip_rect,1000);
     }
     
     public String return_master_string_for_screenshot()
@@ -328,7 +223,6 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
     public void compose_master_string()
     {
      int i;
-     
      master_string=null;
      
      if(b_index==0) //No annotation..all balloons are empty
@@ -366,18 +260,13 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
         }//end for
       
      }//end else
-     
      System.out.println(master_string);
-        
     }
-    
-    
-    
     public void convert_text_to_speech()
     {
-          int i;
-          Voice voice;
-          AudioPlayer audioPlayer = null;
+        int i;
+        Voice voice;
+        AudioPlayer audioPlayer = null;
         
         VoiceManager vm=VoiceManager.getInstance();
         
@@ -387,23 +276,19 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
         
         audioPlayer = new SingleFileAudioPlayer(path_for_audio_file,Type.WAVE); 
         voice.setAudioPlayer(audioPlayer);
-         
-         
          if(b_index>0) //if at all annotation is present then do the voice conversion
        {
          //Initialise the arrays for textboxes and Strings 
         tf=new JTextField[b_index]; 
         ann=new String[b_index];
-        
-        
+   
         //get the annotations from the ballooned textboxes in a String array
         for(i=0;i<b_index;i++)
         {
             tf[i]=(JTextField) b[i].getContents();
             ann[i]=tf[i].getText();
         }
-        
-        
+       
         for(i=0;i<b_index;i++)
         {
             try
@@ -414,18 +299,14 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
         {
             System.out.println("Cannot speak!!");
         }
-            
-            
         }
         
-         voice.deallocate();
+        voice.deallocate();
         audioPlayer.close();
-        
-        
        }//end if
          
-         else
-         {
+    else
+        {
          try
         {
             voice.speak("No Annotation Provided");
@@ -435,17 +316,10 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
             System.out.println("Cannot speak!!");
         }
             voice.deallocate();
-        audioPlayer.close();   
-            
+            audioPlayer.close();  
         }//end else
-        
-              
     }
-    
-    
-    
-    
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -832,39 +706,25 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void show_image(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_show_image
-        // TODO add your handling code here:
+    private void show_image(java.awt.event.WindowEvent evt) {
           File file=new File(display_image_path);       
         try {
             old_image=ImageIO.read(file);
         } catch (IOException ex) {
             Logger.getLogger(editing_window.class.getName()).log(Level.SEVERE, null, ex);
         }
- 
-  
- 
-  thumb = old_image.getScaledInstance(display_label.getWidth(),display_label.getHeight(), Image.SCALE_SMOOTH);
-  icon1=new ImageIcon(thumb);    
- 
-  display_label.setIcon(icon1); 
-  
- 
-        
-        
-    }//GEN-LAST:event_show_image
+          thumb = old_image.getScaledInstance(display_label.getWidth(),display_label.getHeight(), Image.SCALE_SMOOTH);
+          icon1=new ImageIcon(thumb);    
+          display_label.setIcon(icon1); 
+    }
 
     private void rect_drawActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rect_drawActionPerformed
-        // TODO add your handling code here:
         opStatus=1;  //to indicate that rectangle button has been pressed
-        
     }//GEN-LAST:event_rect_drawActionPerformed
 
-    private void mouse_released_onLabel(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouse_released_onLabel
-        // TODO add your handling code here:
-       
+    private void mouse_released_onLabel(java.awt.event.MouseEvent evt) {
          Rectangle r_balloon =new Rectangle(evt.getX(),evt.getY(),2,2);
-         
-         
+       
          switch(opStatus)
         {
             case 1: releasedRect();
@@ -882,16 +742,11 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
                 
             case 4: releasedLine();
                     break;
-                     
         }
-        
-    }//GEN-LAST:event_mouse_released_onLabel
-
-    private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
-        // TODO add your handling code here:
-        
+    }
+    
+    private void SaveActionPerformed(java.awt.event.ActionEvent evt) {
          Rectangle r=new Rectangle(jp.getX(),jp.getY(),jp.getWidth(),jp.getHeight()+10);
-          
          try
          {
           BufferedImage bi = ScreenImage.createImage(r);
@@ -905,39 +760,28 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
         
          //Now handle the annotation Strings and their voice conversion
          convert_text_to_speech();
-         
          compose_master_string();
-                 
-    }//GEN-LAST:event_SaveActionPerformed
+    }
 
-    private void rect_draw_mouse_entered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rect_draw_mouse_entered
-        // TODO add your handling code here:
+    private void rect_draw_mouse_entered(java.awt.event.MouseEvent evt) {
         draw_balloon_on_MouseHover("Draw Rectangle",rect_draw);
-    }//GEN-LAST:event_rect_draw_mouse_entered
+    }
 
-    private void circle_drawActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_circle_drawActionPerformed
-        // TODO add your handling code here:
+    private void circle_drawActionPerformed(java.awt.event.ActionEvent evt) {
         opStatus=2;  //to indicate that Circle button has been pressed
-    }//GEN-LAST:event_circle_drawActionPerformed
+    }
 
-    private void penActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_penActionPerformed
-        // TODO add your handling code here:
+    private void penActionPerformed(java.awt.event.ActionEvent evt) {/
         opStatus=3; //to indicate pen has been Selected
-    }//GEN-LAST:event_penActionPerformed
+    }
 
-    private void restoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restoreActionPerformed
-        // TODO add your handling code here:
+    private void restoreActionPerformed(java.awt.event.ActionEvent evt) {
         int i;
-        
         for(i=0;i<b_index;i++)
         {
          b[i].closeBalloon();
         }
-        
-        
-        
-           
-        
+       
         File file=new File(original_image_folder+"\\Original_image.jpg");       
         try {
             old_image=ImageIO.read(file);
@@ -946,100 +790,73 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
             Logger.getLogger(editing_window.class.getName()).log(Level.SEVERE, null, ex);
         }
  
-  thumb = old_image.getScaledInstance(display_label.getWidth(),display_label.getHeight(), Image.SCALE_SMOOTH);
-  icon1=new ImageIcon(thumb);
-           display_label.setIcon(icon1);
-           
-           b_index=0;
-           
-    }//GEN-LAST:event_restoreActionPerformed
-
-    private void circle_draw_mouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_circle_draw_mouseEntered
-        // TODO add your handling code here:
-        
+        thumb = old_image.getScaledInstance(display_label.getWidth(),display_label.getHeight(), Image.SCALE_SMOOTH);
+        icon1=new ImageIcon(thumb);
+        display_label.setIcon(icon1);
+        b_index=0;
+    }
+    private void circle_draw_mouseEntered(java.awt.event.MouseEvent evt) {
         draw_balloon_on_MouseHover("Draw Circle",circle_draw);
-    }//GEN-LAST:event_circle_draw_mouseEntered
+    }
 
-    private void pen_mouse_Entered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pen_mouse_Entered
-        // TODO add your handling code here:
-        
+    private void pen_mouse_Entered(java.awt.event.MouseEvent evt) {
         draw_balloon_on_MouseHover("Use Pen",pen);
-    }//GEN-LAST:event_pen_mouse_Entered
+    }
 
-    private void save_mouse_entered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_save_mouse_entered
-        // TODO add your handling code here:
+    private void save_mouse_entered(java.awt.event.MouseEvent evt) {
         draw_balloon_on_MouseHover("Save image",Save);
-    }//GEN-LAST:event_save_mouse_entered
+    }
 
-    private void restore_mouse_entered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_restore_mouse_entered
-        // TODO add your handling code here:
+    private void restore_mouse_entered(java.awt.event.MouseEvent evt) {
         draw_balloon_on_MouseHover("Restore Original Screenshot",restore);
-    }//GEN-LAST:event_restore_mouse_entered
+    }
 
-    private void rect_draw_mouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rect_draw_mouseExited
-        // TODO add your handling code here:
-       
-    }//GEN-LAST:event_rect_draw_mouseExited
-
-    private void cyanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cyanActionPerformed
-        // TODO add your handling code here:
+    private void cyanActionPerformed(java.awt.event.ActionEvent evt) {
         color_chosen=Color.CYAN;
-    }//GEN-LAST:event_cyanActionPerformed
+    }
 
-    private void whiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_whiteActionPerformed
-        // TODO add your handling code here:
+    private void whiteActionPerformed(java.awt.event.ActionEvent evt) {
         color_chosen=Color.WHITE;
-    }//GEN-LAST:event_whiteActionPerformed
+    }
 
-    private void yellowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yellowActionPerformed
-        // TODO add your handling code here:
+    private void yellowActionPerformed(java.awt.event.ActionEvent evt) {
         color_chosen=Color.YELLOW;
-    }//GEN-LAST:event_yellowActionPerformed
+    }
 
-    private void blueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_blueActionPerformed
-        // TODO add your handling code here:
+    private void blueActionPerformed(java.awt.event.ActionEvent evt) {
         color_chosen=Color.BLUE;
-    }//GEN-LAST:event_blueActionPerformed
+    }
 
-    private void magentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_magentaActionPerformed
-        // TODO add your handling code here:
+    private void magentaActionPerformed(java.awt.event.ActionEvent evt) {
         color_chosen=Color.MAGENTA;
-    }//GEN-LAST:event_magentaActionPerformed
+    }
 
-    private void orangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orangeActionPerformed
-        // TODO add your handling code here:
+    private void orangeActionPerformed(java.awt.event.ActionEvent evt) {
         color_chosen=Color.ORANGE;
-    }//GEN-LAST:event_orangeActionPerformed
+    }
 
-    private void greyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_greyActionPerformed
-        // TODO add your handling code here:
+    private void greyActionPerformed(java.awt.event.ActionEvent evt) {
         color_chosen=Color.GRAY;
-    }//GEN-LAST:event_greyActionPerformed
+    }
 
-    private void blackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_blackActionPerformed
-        // TODO add your handling code here:
+    private void blackActionPerformed(java.awt.event.ActionEvent evt) {
         color_chosen=Color.BLACK;
-    }//GEN-LAST:event_blackActionPerformed
+    }
 
-    private void redActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_redActionPerformed
-        // TODO add your handling code here:
+    private void redActionPerformed(java.awt.event.ActionEvent evt) {
         color_chosen=Color.RED;
-    }//GEN-LAST:event_redActionPerformed
+    }
 
-    private void greenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_greenActionPerformed
-        // TODO add your handling code here:
+    private void greenActionPerformed(java.awt.event.ActionEvent evt) {
         color_chosen=Color.GREEN;
-    }//GEN-LAST:event_greenActionPerformed
+    }
 
-    private void remove_file_in_O_Images_folder(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_remove_file_in_O_Images_folder
-        // TODO add your handling code here:
-        
+    private void remove_file_in_O_Images_folder(java.awt.event.WindowEvent evt) {
         File file_temp=new File(original_image_folder+"\\Original_image.jpg");
-        
         boolean del;
         del=file_temp.delete();
         
-        //-------------Save the current Image
+        //Save the current Image
         Rectangle r=new Rectangle(jp.getX(),jp.getY(),jp.getWidth(),jp.getHeight()+10);
           
          try
@@ -1052,21 +869,15 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
          { 
              JOptionPane.showMessageDialog(null,"Error in Saving!!");
          }
-        
-        //------------------------------------------------
-        
-        //Voice Finalization------------------------------------
+         
         convert_text_to_speech();
         
         //Compose The Final Master String for the Screenshot
         compose_master_string();
-        
-    }//GEN-LAST:event_remove_file_in_O_Images_folder
+    }
 
-    private void mouse_dragged_onLabel(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouse_dragged_onLabel
-        // TODO add your handling code heree
-        
-          is_mouse_dragged=true;
+    private void mouse_dragged_onLabel(java.awt.event.MouseEvent evt) {
+        is_mouse_dragged=true;
         
         switch(opStatus)
         {
@@ -1082,17 +893,11 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
             case 4: lineOperation(evt);    
                     break;
         }
-        
-        
-        
-        
-        
-    }//GEN-LAST:event_mouse_dragged_onLabel
+    }
 
-    private void show_the_thumbnail_images(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_show_the_thumbnail_images
-        // TODO add your handling code here:
+    private void show_the_thumbnail_images(java.awt.event.WindowEvent evt) {
          FileReader f_reader;
-       int i;
+         int i;
 		try {
 			f_reader = new FileReader(task.thumbnail_path);
 			BufferedReader b_reader= new BufferedReader(f_reader);
@@ -1100,37 +905,29 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
                         for(i=0;i<th_temp.length;i++)
                         {
 		        th_temp[i]=b_reader.readLine();
-                        //System.out.println(th_temp[i]);
                         }
 	                b_reader.close();
                         f_reader.close();
-                        
 	            }
                 catch (Exception ex)
                 {
                     System.out.println("Error in reading File!!");
                 }
                 set_thumbnail_images();
-                
-        
-        
-    }//GEN-LAST:event_show_the_thumbnail_images
+    }
 
-    private void lineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lineActionPerformed
-        // TODO add your handling code here:
+    private void lineActionPerformed(java.awt.event.ActionEvent evt) {
         opStatus=4;
-    }//GEN-LAST:event_lineActionPerformed
+    }
 
-    private void line_mouse_entered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_line_mouse_entered
-        // TODO add your handling code here:
+    private void line_mouse_entered(java.awt.event.MouseEvent evt) {
         draw_balloon_on_MouseHover("Draw line",line);
-    }//GEN-LAST:event_line_mouse_entered
+    }
 
     /**
      * @param args the command line arguments
      */
     public void set_display_image_path(String s) {
-      
        display_image_path=s;
     }
     
@@ -1139,25 +936,18 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
         path_for_audio_file=s;
     }
     
-    
-    
     public void set_original_image_folder_path(String s)
     {
      original_image_folder=s;   
     }
     
-    
-    
-    
     public void draw_balloon_tip(Rectangle x)
     {
-         final JTextField t1=new JTextField(20);
-        
-         //EdgedBalloonStyle style = new EdgedBalloonStyle(Color.WHITE, Color.BLUE);
+        final JTextField t1=new JTextField(20);
         ModernBalloonStyle m =new ModernBalloonStyle(5,5,Color.GREEN,Color.GREEN,Color.RED);
                    m.setCornerStyles(true,true,true,true);
                  
-                   b[b_index] = new CustomBalloonTip(
+        b[b_index] = new CustomBalloonTip(
 					display_label,
 					t1,
                                         x,
@@ -1168,26 +958,14 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
 					true
 				);
          
-          
-            //b[b_index].setCloseButton(BalloonTip.getDefaultCloseButton(), false);
-                   b[b_index].setCloseButton(null,true);
-                   b[b_index].setOpacity(0.9f);
-                   
-                                   b[b_index].setVisible(true);
-                   
-                   b_index++;
-                   
-          
-        
+        b[b_index].setCloseButton(null,true);
+        b[b_index].setOpacity(0.9f);
+        b[b_index].setVisible(true);
+        b_index++;
     }
-    
-    
-    
     
     public void create_editing_window()
     {
-        
-        
       /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -1200,10 +978,9 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
    public void lineOperation(MouseEvent e)
  {
      Color c_line;
-        c_line=color_chosen;
-     
-    Graphics g  = display_label.getGraphics();
-    g.setColor(c_line);
+     c_line=color_chosen;
+     Graphics g  = display_label.getGraphics();
+     g.setColor(c_line);
 
     /*
       In initial state setup default values
@@ -1239,12 +1016,6 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
     }
  }
 
-    
-    
-    
-    
-    
-    
     public void rectoperation(MouseEvent e)
     {
         Color c_rect;
@@ -1253,14 +1024,12 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
         Graphics g=display_label.getGraphics();
         g.setColor(c_rect);
         
-         if (initialRect)
-    {
-       setGraphicalDefaults(e);
-       initialRect = false;
-    }
+         if (initialRect){
+        setGraphicalDefaults(e);
+        initialRect = false;
+       }
 
-        if (mouseHasMoved(e))
-    {
+        if (mouseHasMoved(e)){
        /*
          Delete previous rectangle shadow
          by xor-ing the graphical object
@@ -1282,14 +1051,12 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
         
     }//end rectoperation
     
-    
-    public void ovalOperation(MouseEvent e)
- {
+    public void ovalOperation(MouseEvent e){
      Color c_oval;
-        c_oval=color_chosen;
+     c_oval=color_chosen;
      
-    Graphics g  = display_label.getGraphics();
-    g.setColor(c_oval);
+     Graphics g  = display_label.getGraphics();
+     g.setColor(c_oval);
 
     /*
       In initial state setup default values
@@ -1327,10 +1094,9 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
  }//end ovalOperation
     
     
-    public void penOperation(MouseEvent e)
- {
+    public void penOperation(MouseEvent e){
      Color c_pen;
-        c_pen=color_chosen;
+     c_pen=color_chosen;
     
      Graphics g  = display_label.getGraphics();
      g.setColor(c_pen);
@@ -1372,30 +1138,9 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
        prevx = mousex;
        prevy = mousey;
     }
-     
-     
-     
  }//end penoperation
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    public void setGraphicalDefaults(MouseEvent e)
- {
+    public void setGraphicalDefaults(MouseEvent e){
     mousex   = e.getX();
     mousey   = e.getY();
     prevx    = e.getX();
@@ -1408,13 +1153,11 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
     OrHeight = 0;
  }//end setGrpahicsDefaultss
     
-    public boolean mouseHasMoved(MouseEvent e)
- {
+    public boolean mouseHasMoved(MouseEvent e){
     return (mousex != e.getX() || mousey != e.getY());
  }//end mouseHasMoved
     
-     public void setActualBoundry()
- {
+     public void setActualBoundry(){
        /*
          If the any of the current mouse coordinates
          are smaller than the origin coordinates, meaning
@@ -1471,51 +1214,32 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
           OrHeight = mousey - Ory;
        }
  }
-
-   
-    public void releasedRect()
- {
+    public void releasedRect(){
     initialRect = true;
     Graphics g  = display_label.getGraphics();
     g.setColor(color_chosen);
     g.drawRect(drawX,drawY,OrWidth,OrHeight);
  }
     
-     public void releasedOval()
- {
-    initialOval = true;
-    Graphics g  = display_label.getGraphics();
-    g.setColor(color_chosen);
-    g.drawOval(drawX,drawY,OrWidth,OrHeight);
+     public void releasedOval(){
+       initialOval = true;
+       Graphics g  = display_label.getGraphics();
+       g.setColor(color_chosen);
+       g.drawOval(drawX,drawY,OrWidth,OrHeight);
  }
      
-      public void releasedpen()
- {
-   initialPen = true;
+      public void releasedpen(){
+       initialPen = true;
  }
 
-    public void releasedLine()
- {
-    if ((Math.abs(Orx - mousex) + Math.abs(Ory - mousey)) != 0)
-    {
-       //System.out.println("Line has been released....");
+    public void releasedLine(){
+    if ((Math.abs(Orx - mousex) + Math.abs(Ory - mousey)) != 0){
        initialLine = true;
        Graphics g  = display_label.getGraphics();
        g.setColor(color_chosen);
        g.drawLine(Orx,Ory,mousex,mousey);
     }
  } 
-    
-   
-    
-    
-    
-    
-    
-    
-    
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Save;
     private javax.swing.JButton black;
@@ -1544,41 +1268,41 @@ public class editing_window extends javax.swing.JFrame implements ActionListener
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
     }
 }
