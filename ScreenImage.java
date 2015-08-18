@@ -52,8 +52,6 @@ import javax.swing.*;
  *
  */
 
-
-
 public class ScreenImage {
     private static List<String> types = Arrays.asList( ImageIO.getWriterFileSuffixes() );
 
