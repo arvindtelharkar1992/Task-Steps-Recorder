@@ -26,46 +26,26 @@ import sun.audio.*;
  * @author Arvind
  */
 public class view_recording_window extends javax.swing.JFrame {
-
-    
      public static String view_image_path;
-    
      public static int i_cnt;
-    
      public static int a_cnt;  //count of audio Files
-    
      public static int view_image_index;
-    
      public static int play_file_index;
-    
      BufferedImage d_image;
-
      ImageIcon icon2;
-     
      public static String title_of_Record_viewer;
-     
      public static String[] list_of_images;
-     
      public static String[] list_of_audioclips;
-     
      public static File[] flist_images;
-     
      public static File[] flist_audio;
-     
    
     /**
      * Creates new form view_recording_window
      */
     public view_recording_window() {
-      
-       
         initComponents();
-      
-       
         view_image_index=0;
         play_file_index=0;
-        //this.setSize(400,400);
-        
     }
     
     public void set_title_of_frame(String s)
@@ -81,11 +61,9 @@ public class view_recording_window extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         view_label = new javax.swing.JLabel();
         prev = new javax.swing.JButton();
         next = new javax.swing.JButton();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(title_of_Record_viewer);
         setAlwaysOnTop(true);
@@ -137,13 +115,10 @@ public class view_recording_window extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void show_first_image(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_show_first_image
-        // TODO add your handling code here:
-        
-     //Play the First Audio Clip---------------------------------------
+    private void show_first_image(java.awt.event.WindowEvent evt) {
+     //Play the First Audio Clip
         play_the_audio_file(list_of_audioclips[play_file_index]);
-        
-     //Display the first Image----------------------------   
+     //Display the first Image   
         String path=list_of_images[view_image_index];
         File file1=new File(path);
 	//Display The Image in the label	 
@@ -154,40 +129,28 @@ public class view_recording_window extends javax.swing.JFrame {
                   { 
                       view_label.setText("Error!!");
                   }
-        
+       
   Image thumb = d_image.getScaledInstance(view_label.getWidth(), view_label.getHeight(), Image.SCALE_SMOOTH);
-  icon2=new ImageIcon(thumb);    
-  
-  
+  icon2=new ImageIcon(thumb);   
   view_label.setIcon(icon2);
-        
-        
-    }//GEN-LAST:event_show_first_image
+    }
 
-    private void prevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevActionPerformed
-        // TODO add your handling code here:
-        
-        //Handle the Audio Part----------------------------------------------
-        
+    private void prevActionPerformed(java.awt.event.ActionEvent evt) {
+       //Handle the Audio Part
           if(play_file_index>0)
        {
            play_file_index--;  //take the previous audio File
        }    
         
         play_the_audio_file(list_of_audioclips[play_file_index]);
-        
-     //end of Audio part---------------------------------------------------------
-        
-       //Handle the Image Display part------------------------------------------
-        
+       //end of Audio part
+       //Handle the Image Display part
          if(view_image_index>0)
        {
            view_image_index--;  //take the previous image
        }    
-  
-         
+ 
          String path=list_of_images[view_image_index];  //new way 
-           
          File file=new File(path);
          //Display the Image in the label
           try
@@ -200,22 +163,14 @@ public class view_recording_window extends javax.swing.JFrame {
  
   Image thumb = d_image.getScaledInstance(view_label.getWidth(),view_label.getHeight(), Image.SCALE_SMOOTH);
   icon2=new ImageIcon(thumb);    
-  
   view_label.setIcon(icon2);
-  
-    //end the Image Display Part---------------------------------------------------
-             
-    }//GEN-LAST:event_prevActionPerformed
+    //end the Image Display Part
+    }
 
-    private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
-        // TODO add your handling code here:
-    
-     //Handle the Audio Part----------------------------------------------   
-        
+    private void nextActionPerformed(java.awt.event.ActionEvent evt) {
+         //Handle the Audio Part  
          int next_audio_file_index;
          next_audio_file_index=play_file_index+1;
-        
-        
          if(next_audio_file_index < a_cnt)
        {
         play_file_index++;  //take the next audio File
@@ -223,21 +178,16 @@ public class view_recording_window extends javax.swing.JFrame {
          
         play_the_audio_file(list_of_audioclips[play_file_index]);
         
-     //end of Audio Part----------------------------------------------------
+       //end of Audio Part
         
-      //Handle the Image Display part---------------------------------------  
+      //Handle the Image Display part
         int next_image_index;
         next_image_index=view_image_index+1;
-        
        if(next_image_index < i_cnt)
        {
         view_image_index++;  //take the next image
        }
-       
- 
-       
        String path=list_of_images[view_image_index];
-       
        File file=new File(path);
         //Display the Image in the label
           try 
@@ -252,16 +202,13 @@ public class view_recording_window extends javax.swing.JFrame {
   icon2=new ImageIcon(thumb);    
   
   view_label.setIcon(icon2);        
-   //end of Image Display part-----------------------------------------------  
-  
-    }//GEN-LAST:event_nextActionPerformed
+   //end of Image Display part 
+    }
 
     /**
      * @param args the command line arguments
      */
     public void show_recording_window(){
-        
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -283,77 +230,54 @@ public class view_recording_window extends javax.swing.JFrame {
     }
      
      public void sort(File[] files)
-     {
-         
+       {
           Arrays.sort(files, new Comparator(){
-@Override
-public int compare(Object o1, Object o2) {
-
-if (((File)o1).lastModified() < ((File)o2).lastModified()) 
- {
-return -1;
- }
-else if (((File)o1).lastModified() > ((File)o2).lastModified()) 
- {
-return 1;
- } 
- else 
- {
- return 0;
- }
-}
-}); 
-     }
-     
-     
-     
+          @Override
+          public int compare(Object o1, Object o2) {
+            if (((File)o1).lastModified() < ((File)o2).lastModified()) 
+         	{
+		  return -1;
+ 		}
+	    else if (((File)o1).lastModified() > ((File)o2).lastModified()) 
+ 		{
+		  return 1;
+ 		} 
+            else 
+ 		{
+ 		  return 0;
+ 		}
+      }
+    }); 
+  }
+   
      public void sort_imagefiles_on_time()
      {
-         int i;
-         
-          //System.out.println("Adjusting the flist_images array");  
-       
+          int i;
           sort(flist_images);
-          
-          //System.out.println("Printing the images array after the adjustment");
           i=0;
           for (File file : flist_images)
             {
                     list_of_images[i]=file.getAbsolutePath().toString();
-                    //System.out.println(list_of_images[i]);   
                     i++;   
             }
-          
      }
      
      public void sort_audiofile_on_time()
      {
           int i;
-         
-          //System.out.println("Adjusting the flist_audio array");  
-          
           sort(flist_audio);
-          
-          //System.out.println("printing the list of audio clips after adjustment");  
-    
           i=0;
           for (File file : flist_audio)
             {
                     list_of_audioclips[i]=file.getAbsolutePath().toString();
-                    //System.out.println(list_of_audioclips[i]);   
                     i++;   
             }
-    
      }
-     
-     
+    
      public void count_images()
      {
-         //System.out.println("IN COUNT IMAGES");  
-         
-          int i;
-          i_cnt=0;
-         
+         int i;
+         i_cnt=0;
          File directory = new File(view_image_path);
          File[] fList = directory.listFiles();
         
@@ -368,7 +292,6 @@ return 1;
         flist_images=new File[i_cnt];
         list_of_images=new String[i_cnt];
         i=0;
-        
          for (File file : fList)
         {
             if(file.isFile() && file.getName().endsWith("jpg"))
@@ -377,17 +300,12 @@ return 1;
                     i++;
             }
         }
-        
      }
      
      public void get_the_audio_files()
      {
-         //System.out.println("IN GET AUDIO FILES");  
-         
-          int i;
-      
-            a_cnt=0; 
-          
+       int i;
+       a_cnt=0; 
        File directory = new File(view_image_path);
        File[] fList = directory.listFiles();
      
@@ -411,9 +329,7 @@ return 1;
                     i++;
             }
         }
-        
      }
-     
      
      public void play_the_audio_file(String s)
      {
@@ -428,8 +344,7 @@ return 1;
              System.out.println("Cannot play the associated audio File");
          }
      }
-     
-     
+    
      public int verify_info_file()
      {
          String check_path=view_image_path;
@@ -443,15 +358,14 @@ return 1;
          return 0;
          }
      }
-     
- 
+   
     public void select_viewimage_path()
     {
         JFileChooser chooser = new JFileChooser();
-         chooser.setDialogTitle("Please Select A Task");
-         chooser.setCurrentDirectory(new java.io.File("."));
-         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-chooser.setAcceptAllFileFilterUsed(false);
+        chooser.setDialogTitle("Please Select A Task");
+        chooser.setCurrentDirectory(new java.io.File("."));
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setAcceptAllFileFilterUsed(false);
 
         if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) 
         {
@@ -464,7 +378,6 @@ chooser.setAcceptAllFileFilterUsed(false);
         }
     }
     
-      
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton next;
     private javax.swing.JButton prev;
