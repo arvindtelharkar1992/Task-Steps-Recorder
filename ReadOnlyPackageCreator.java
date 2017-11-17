@@ -17,7 +17,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class create_read_only {
+public class ReadOnlyPackageCreator {
 	Integer i;
 	String str;
 	public File fread;
