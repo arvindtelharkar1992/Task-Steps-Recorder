@@ -27,7 +27,7 @@ import org.jnativehook.GlobalScreen;
  *
  * @author Arvind
  */
-public class myframe extends javax.swing.JFrame {
+public class MainFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form myframe
