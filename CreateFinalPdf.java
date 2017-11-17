@@ -24,7 +24,7 @@ import java.util.Comparator;
 import javax.swing.JOptionPane;
 import org.apache.poi.ss.usermodel.Footer;
 
-public class Create_Final_pdf {
+public class CreateFinalPdf {
     
     public static File[] images_for_pdf;
     public static int image_count_for_pdf;
