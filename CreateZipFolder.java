@@ -16,7 +16,7 @@ import java.util.zip.ZipOutputStream;
  *
  * @author Arvind
  */
-public class create_zip_folder {
+public class CreateZipFolder {
     
     public String path_of_zipfile;
     public String name_of_zipfolder;
