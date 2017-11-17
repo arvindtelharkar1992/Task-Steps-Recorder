@@ -25,7 +25,7 @@ import sun.audio.*;
  *
  * @author Arvind
  */
-public class view_recording_window extends javax.swing.JFrame {
+public class RecordingWindowViewer extends javax.swing.JFrame {
      public static String view_image_path;
      public static int i_cnt;
      public static int a_cnt;  //count of audio Files
