@@ -25,7 +25,7 @@ import org.jnativehook.keyboard.NativeKeyListener;
  * @author Arvind
  */
 
-public class task implements NativeKeyListener {
+public class Task implements NativeKeyListener {
 
     public String[] annotation;
     public static String workspace_path;
