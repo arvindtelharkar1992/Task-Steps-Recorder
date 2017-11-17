@@ -47,7 +47,7 @@ import java.io.*;
  *
  * @author Arvind
  */
-public class editing_window extends javax.swing.JFrame implements ActionListener,MouseListener,MouseMotionListener {
+public class EditingWindow extends javax.swing.JFrame implements ActionListener,MouseListener,MouseMotionListener {
 
     /**
      * Creates new form editing_window
